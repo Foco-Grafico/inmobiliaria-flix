@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "api:start": "cd api && pip install -r requirements.txt && py main.py",
+    "api:start": "pip install -r ./api/requirements.txt && uvicorn api.main:app --host 0.0.0.0 --port 8000",
+    "api:dev": "pip install -r ./api/requirements.txt && uvicorn api.main:app --reload --host 0.0.0.0 --port 8000",
     "dev": "concurrently \"next dev\" \"npm run api:start\"",
     "build": "next build",
     "start": "concurrently \"next start\" \"npm run api:start\"",
