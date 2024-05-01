@@ -2,7 +2,9 @@ from api.src.core.app import FAST_APP
 from dotenv import load_dotenv
 load_dotenv()
 
-fast_app = FAST_APP()
+fast_app = FAST_APP(
+    routers=[]
+)
 
 app = fast_app.get_app()
 
