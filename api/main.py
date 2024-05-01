@@ -1,4 +1,4 @@
-from .src.core.app import FAST_APP
+from api.src.core.app import FAST_APP
 from dotenv import load_dotenv
 load_dotenv()
 
