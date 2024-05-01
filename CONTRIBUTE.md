@@ -26,7 +26,7 @@
 - [ ] Auth:
     - [ ] GET: Obtener cuenta a travez de correo (o numero) y contraseña
     - [ ] GET: Obtener cuenta a travez de un token
-    - [ ] POST: Crear cuenta
+    - [ ] POST: Crear cuenta -> TOKEN con EXPIRACION
 - [ ] Database:
     - [ ] Conectar a la base de datos
     - [ ] Crear tablas necesarias
