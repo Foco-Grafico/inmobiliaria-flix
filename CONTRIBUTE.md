@@ -30,4 +30,4 @@
 - [ ] Auth:
     - [ ] GET: Obtener cuenta a travez de correo (o numero) y contraseña
     - [ ] GET: Obtener cuenta a travez de un token
-    - [ ] POST: Crear cuenta -> TOKEN con EXPIRACION
+    - [x] POST: Crear cuenta -> TOKEN con EXPIRACION
