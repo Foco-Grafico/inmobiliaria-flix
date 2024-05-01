@@ -1,8 +1,9 @@
+import { LoginForm } from "./login/components/login-form";
 
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      pagina principal
+      <LoginForm/>
     </main>
   );
 }
