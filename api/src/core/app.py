@@ -1,21 +1,14 @@
 from fastapi import FastAPI, APIRouter, Request, Response
 from typing import Callable, Any, Coroutine
 from fastapi.middleware.cors import CORSMiddleware
+from api.src.middleware import middleware
 
 class FAST_APP:
     def __init__(
         self,
         routers: list[APIRouter] = [],
-        middleware: Callable[
-            [
-                Request,
-                Callable[[], Response]
-            ],
-            Coroutine[Any, Any, Response]
-        ] | None = None,
     ):
         self.app = FastAPI()
-        self.middleware = middleware
         self.routers = routers
 
         self.__load_middleware__()
@@ -42,7 +35,7 @@ class FAST_APP:
         def next():
             return response
         
-        new_response = await self.middleware(request, next) if self.middleware else response
+        new_response = await middleware(request, next)
         
         return new_response
 
