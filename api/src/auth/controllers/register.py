@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from api.src.utils.data import EXPIRATION_TIME_TOKEN_DAYS
 from datetime import datetime, timedelta
 from bcrypt import hashpw, gensalt
-from fastapi import HTTPException
+from fastapi import HTTPException, Depends
 from uuid import uuid4 as v4
 
 class RegisterUserRequest(BaseModel):
@@ -13,12 +13,29 @@ class RegisterUserRequest(BaseModel):
     last_name: str
     phone_number: str
 
+    @classmethod
+    def as_form(
+        cls,
+        email: str,
+        password: str,
+        first_name: str,
+        last_name: str,
+        phone_number: str
+    ):
+        return cls(
+            email=email,
+            password=password,
+            first_name=first_name,
+            last_name=last_name,
+            phone_number=phone_number
+    )
+
 def timeplusdays(extra_days: int):
     now = datetime.now()
 
     return now + timedelta(days=extra_days)
 
-async def register_user(request_user: RegisterUserRequest):
+async def register_user(request_user: RegisterUserRequest = Depends(RegisterUserRequest.as_form)):
     db = DB()
 
     token = hashpw(request_user.password.encode('utf-8'), gensalt()).decode('utf-8')
