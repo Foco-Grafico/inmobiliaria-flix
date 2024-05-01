@@ -38,4 +38,5 @@ async def register_user(request_user: RegisterUserRequest):
     
     return {
         'message': 'User registered successfully',
+        'token': token
     }
