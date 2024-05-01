@@ -1,17 +1,15 @@
 from api.src.core.app import FAST_APP
-from api.src.services.turso import DB
+from api.src.auth.router import router as auth_router
 
 fast_app = FAST_APP(
-    routers=[]
+    routers=[
+        auth_router
+    ]
 )
 
 app = fast_app.get_app()
 
 @app.get("/")
 async def root():
-    db = DB()
-
-    _, schema = db.select().from_table('users').execute()
-
-    return {"message": schema}
+    return {"message": 'Hello World!'}
 
