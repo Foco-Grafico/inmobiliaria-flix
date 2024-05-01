@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start:api": "cd api && pip install -r requirements.txt && py main.py",
-    "dev": "concurrently \"next dev\" \"npm run start:api\"",
+    "api:start": "cd api && pip install -r requirements.txt && py main.py",
+    "dev": "concurrently \"next dev\" \"npm run api:start\"",
     "build": "next build",
-    "start": "concurrently \"next start\" \"npm run start:api\"",
+    "start": "concurrently \"next start\" \"npm run api:start\"",
     "lint": "next lint"
   },
   "dependencies": {
