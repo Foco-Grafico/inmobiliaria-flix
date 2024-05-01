@@ -16,12 +16,13 @@ class FAST_APP:
     ):
         self.app = FastAPI()
         self.middleware = middleware
+        self.routers = routers
 
         self.__load_middleware__()
-        self.__load_routers__(routers)
+        self.__load_routers__()
 
-    def __load_routers__(self, routers: list[APIRouter]):
-        for router in routers:
+    def __load_routers__(self):
+        for router in self.routers:
             self.app.include_router(router)
 
     def __load_middleware__(self):
