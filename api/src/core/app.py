@@ -42,7 +42,9 @@ class FAST_APP:
         def next():
             return response
         
-        return await self.middleware(request, next) if self.middleware else response
+        new_response = await self.middleware(request, next) if self.middleware else response
+        
+        return new_response
 
     def get_app(self):
         return self.app
