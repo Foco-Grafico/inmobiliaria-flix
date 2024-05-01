@@ -1,0 +1,1 @@
+EXPIRATION_TIME_TOKEN = 60 * 60 * 24 * 50  # 50 days
