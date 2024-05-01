@@ -1,7 +1,9 @@
 import requests
 from dotenv import load_dotenv
 import os
+from typing import Any
 load_dotenv()
+from datetime import date, datetime, time
 
 class DB:
     def __init__(self):
@@ -13,7 +15,7 @@ class DB:
         self.type = None
         self.table_name = None
         self.select_params = []
-        self.insert_params = {}
+        self.insert_params: dict[str, str] = {}
         self.update_params = {}
         self.where_params = {}
         self.upsert_params = {}
@@ -24,9 +26,32 @@ class DB:
         
         return self
     
-    def insert(self, insert_params: dict[str, str] = {}):
-        self.insert_params = insert_params
+    def __convert_to_string__(self, value: str | int | float | date | datetime | time | bool):
+        if isinstance(value, str):
+            return f"'{value}'"
+        elif isinstance(value, date):
+            return f"'{value.strftime('%Y-%m-%d')}'"
+        elif isinstance(value, datetime):
+            return f"'{value.strftime('%Y-%m-%d %H:%M:%S')}'"
+        elif isinstance(value, time):
+            return f"'{value.strftime('%H:%M:%S')}'"
+        elif isinstance(value, bool):
+            return 'true' if value else 'false'
+        else:
+            return f'{value}'
+        
+
+    def insert(self, insert_params: dict[str, str | int | float | date | datetime | time] = {}):
+        new_insert_params: dict[str, str] = {}
+        
+        for key, value in insert_params.items():
+            stringified_value = self.__convert_to_string__(value)
+
+            new_insert_params[key] = stringified_value
+        
+        
         self.type = 'insert'
+        self.insert_params = new_insert_params
 
         return self
     
@@ -88,6 +113,13 @@ class DB:
         
         json = response.json()
 
+        if json['results'][0]['type'] == 'error':
+            raise ValueError(json['results'][0]['error']['message'])
+
+        return self.__parse_select_response__(json)
+
+    
+    def __parse_select_response__(self, json: Any):
         schema = json['results'][0]['response']['result']['cols']
         data = json['results'][0]['response']['result']['rows']
 
