@@ -23,11 +23,11 @@
         - [ ] Se debe mostrar el logo de la aplicacion
 
 ### Back-End:
-- [ ] Auth:
-    - [ ] GET: Obtener cuenta a travez de correo (o numero) y contraseña
-    - [ ] GET: Obtener cuenta a travez de un token
-    - [ ] POST: Crear cuenta -> TOKEN con EXPIRACION
 - [ ] Database:
     - [ ] Conectar a la base de datos
     - [ ] Crear tablas necesarias
     - [ ] Realizar consultas y actualizaciones
+- [ ] Auth:
+    - [ ] GET: Obtener cuenta a travez de correo (o numero) y contraseña
+    - [ ] GET: Obtener cuenta a travez de un token
+    - [ ] POST: Crear cuenta -> TOKEN con EXPIRACION
