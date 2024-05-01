@@ -1,4 +1,4 @@
-CREATE OR REPLACE TABLE users (
+CREATE TABLE users (
     id VARCHAR(36) PRIMARY KEY DEFAULT (UUID()),
     first_name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255) NOT NULL,
