@@ -1,10 +1,11 @@
+'use client'
 export default function FormRegister() {
     const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         const formData = new FormData (e.currentTarget);
 
-        fetch ('api/register'{
+        fetch ('api/auth/register',{
             method: 'POST',
             body: formData,
             })
