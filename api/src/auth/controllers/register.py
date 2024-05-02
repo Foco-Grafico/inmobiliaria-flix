@@ -3,7 +3,8 @@ from pydantic import BaseModel
 from api.src.utils.data import EXPIRATION_TIME_TOKEN_DAYS
 from datetime import datetime, timedelta
 from bcrypt import hashpw, gensalt
-from fastapi import HTTPException, Depends
+from fastapi import HTTPException, Depends, Form
+from typing import Annotated
 from uuid import uuid4 as v4
 
 class RegisterUserRequest(BaseModel):
@@ -16,11 +17,11 @@ class RegisterUserRequest(BaseModel):
     @classmethod
     def as_form(
         cls,
-        email: str,
-        password: str,
-        first_name: str,
-        last_name: str,
-        phone_number: str
+        email: Annotated[str, Form()],
+        password: Annotated[str, Form()],
+        first_name: Annotated[str, Form()],
+        last_name: Annotated[str, Form()],
+        phone_number: Annotated[str, Form()]
     ):
         return cls(
             email=email,
