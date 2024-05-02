@@ -1,11 +1,8 @@
-from fastapi import Cookie, HTTPException
+from fastapi import Cookie
 from typing import Annotated
 from api.src.services.turso import DB
 
 async def is_logged(token: Annotated[str | None, Cookie()] = None):
-    if token is None:
-        raise HTTPException(status_code=401, detail='Unauthorized')
-
     db = DB()
 
     try:
