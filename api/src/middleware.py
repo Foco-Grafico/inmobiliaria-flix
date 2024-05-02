@@ -6,6 +6,4 @@ async def middleware(
     request: Request,
     next: Callable[[], Response]
 ):
-    print(request.cookies.items())
-
     return next()
