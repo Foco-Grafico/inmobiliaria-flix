@@ -32,14 +32,13 @@ async def login_user(request_user: LoginUserRequest = Depends(LoginUserRequest.a
         }).or_where({
             'phone_number': request_user.phone_number
         }).single_execute()
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+    except:
+        # Error has occurred when user is not found
+        raise HTTPException(status_code=404, detail='User not found')
     
-    if not user:
-        raise HTTPException(status_code=400, detail='User not found')
     
     if not checkpw(request_user.password.encode('utf-8'), user['token'].encode('utf-8')):
-        raise HTTPException(status_code=400, detail='Invalid password')
+        raise HTTPException(status_code=401, detail='Invalid password')
     
     return {
         'message': 'User logged in successfully',
