@@ -19,7 +19,7 @@ class DB:
         self.update_params = {}
         self.where_params: list[dict[str, str | int | float | bool | None | date | datetime | time]] = []
         self.upsert_params = {}
-        self.__single__ = False
+        self.data = []
 
     def select(self, select_params: list[str] = []):
         self.select_params = select_params
@@ -127,23 +127,33 @@ class DB:
             raise ValueError(json['results'][0]['error']['message'])
 
         return self.__parse_select_response__(json)
-
-    def single(self):
-        self.__single__ = True
-
-        return self
     
     def __parse_select_response__(self, json: Any):
         schema = json['results'][0]['response']['result']['cols']
         data = json['results'][0]['response']['result']['rows']
 
-        if self.__single__:
-            if len(data) > 0:
-                return data[0], schema
-            else:
-                return None, schema
+        formatted_data: list[dict[str, Any]] = []
 
-        return data, schema
+        # start from 0
+        for row_elements_index in range(len(data)):
+            print(row_elements_index)
+            
+            for element_index in range(len(data[row_elements_index])):
+
+                name_param = schema[element_index]['name']
+                value = data[row_elements_index][element_index]['value']
+
+                if len(formatted_data) > row_elements_index:
+                    formatted_data[row_elements_index][name_param] = value
+                else:
+                    formatted_data.append({name_param: value})
+
+        return formatted_data
+    
+    def single_execute(self):
+        response = self.execute()
+
+        return response[0]
 
 
     def __construct_query__(self):
