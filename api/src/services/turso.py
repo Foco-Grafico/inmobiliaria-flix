@@ -152,6 +152,9 @@ class DB:
     def single_execute(self):
         response = self.execute()
 
+        if len(response) == 0:
+            return None
+
         return response[0]
 
 
