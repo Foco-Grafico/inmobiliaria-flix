@@ -1,4 +1,3 @@
-'use client'
 export default function FormRegister() {
     const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
