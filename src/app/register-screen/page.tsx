@@ -1,7 +1,4 @@
-import { error } from "console";
-import { METHODS } from "http";
-
-export default function FormRegister({onSubmit}) {
+export default function FormRegister() {
     const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
