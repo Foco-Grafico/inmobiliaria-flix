@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from fastapi import HTTPException, Depends, Form
+from fastapi.responses import JSONResponse
 from api.src.services.turso import DB
 from typing import Annotated
 from bcrypt import checkpw
@@ -25,7 +26,6 @@ class LoginUserRequest(BaseModel):
 
 async def login_user(request_user: LoginUserRequest = Depends(LoginUserRequest.as_form)):
     db = DB()
-
     try:
         user = db.select(['token']).from_table('users').where({
             'email': request_user.email
@@ -40,7 +40,11 @@ async def login_user(request_user: LoginUserRequest = Depends(LoginUserRequest.a
     if not checkpw(request_user.password.encode('utf-8'), user['token'].encode('utf-8')):
         raise HTTPException(status_code=401, detail='Invalid password')
     
-    return {
+    response = JSONResponse(content={
         'message': 'User logged in successfully',
         'token': user['token']
-    }
+    })
+
+    response.set_cookie(key='token', value=user['token'])
+
+    return response
