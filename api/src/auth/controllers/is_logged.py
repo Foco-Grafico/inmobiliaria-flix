@@ -6,12 +6,17 @@ async def is_logged(token: Annotated[str | None, Body(..., embed=True)] = None):
     db = DB()
 
     try:
-        db.select([
+        user = db.select([
             'token'
         ]).from_table('users').where({
             'token': token
         }).single_execute()
     except:
+        return {
+            'value': False
+        }
+
+    if not user:
         return {
             'value': False
         }
