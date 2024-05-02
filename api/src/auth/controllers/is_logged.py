@@ -1,8 +1,8 @@
-from fastapi import Cookie
+from fastapi import Body
 from typing import Annotated
 from api.src.services.turso import DB
 
-async def is_logged(token: Annotated[str | None, Cookie()] = None):
+async def is_logged(token: Annotated[str | None, Body(..., embed=True)] = None):
     db = DB()
 
     try:
@@ -12,6 +12,10 @@ async def is_logged(token: Annotated[str | None, Cookie()] = None):
             'token': token
         }).single_execute()
     except:
-        return False
+        return {
+            'value': False
+        }
 
-    return True
+    return {
+        'value': True
+    }
