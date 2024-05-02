@@ -1,4 +1,5 @@
-import { APIENDPOINST } from "@/utils/API-CALLS/api-url"
+'use server'
+import { APIENDPOINST } from "@/utils/api-calls/api-url"
 import { redirect } from "next/navigation"
 
 // ZOD

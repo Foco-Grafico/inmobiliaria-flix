@@ -1,9 +1,9 @@
-export const API_URL = 'http://127.0.0.1:3001'
+export const apiUrl = 'http://127.0.0.1:3001'
 
 export const APIENDPOINST = {
   // Users
-  postLoginPoint: `${API_URL}/auth/register`,
-  postRegisterPoint: `${API_URL}/auth/login`,
+  postLoginPoint: `${apiUrl}/auth/register`,
+  postRegisterPoint: `${apiUrl}/auth/login`,
   // Default
-  postDefaultPoint: `${API_URL}/`
+  postDefaultPoint: `${apiUrl}/`
 }
