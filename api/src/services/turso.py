@@ -141,7 +141,7 @@ class DB:
             if len(data) > 0:
                 return data[0], schema
             else:
-                return None
+                return None, schema
 
         return data, schema
 

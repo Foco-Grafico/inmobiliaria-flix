@@ -25,7 +25,7 @@ async def login_user(request_user: LoginUserRequest = Depends(LoginUserRequest.a
     db = DB()
 
     try:
-        user = db.select(['token', 'first_name']).from_table('users').where({
+        user, _ = db.select(['token', 'first_name']).from_table('users').where({
             'email': request_user.email
         }).or_where({
             'phone_number': request_user.phone_number
