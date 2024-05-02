@@ -1,27 +1,7 @@
-'use client'
 
 import Image from 'next/image'
-import { useState } from 'react'
-import Login from '../API/login'
 
 export const LoginForm = () => {
-  const [err, setErr] = useState<null | string>(null)
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const form = new FormData(e.currentTarget)
-    setErr(null)
-
-    Login(
-      form
-    ).then((data) => {
-      console.log('Login successful:', data)
-    }).catch((err) => {
-      console.error('Login failed:', err)
-      setErr(err.message)
-    })
-  }
-
   return (
 
     <div className='grid grid-cols-2 h-screen w-full'>
@@ -62,7 +42,7 @@ export const LoginForm = () => {
               </a>
             </p>
           </div>
-          <form className='space-y-4' onSubmit={handleSubmit}>
+          <form action='/api/auth/login?redirect=/' className='space-y-4'>
             <div>
               <label
                 className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 sr-only'
@@ -161,7 +141,7 @@ export const LoginForm = () => {
               >
                 Sign in
               </button>
-              {err != null && <p id='paragraph-error' className='text-red-500'>{err}</p>}
+              {/* {err != null && <p id='paragraph-error' className='text-red-500'>{err}</p>} */}
             </div>
           </form>
           <div className='mt-6 text-center text-sm'>
