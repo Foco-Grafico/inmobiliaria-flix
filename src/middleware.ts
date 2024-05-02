@@ -21,6 +21,8 @@ const isLogged = async ({
 
   const json = await res.json()
 
+  console.log(json)
+
   return z.boolean().parse(json.value)
 }
 
