@@ -10,8 +10,6 @@ class DB:
         self.__url__ = os.getenv('TURSO_HTTP_URL')
         self.__token__ = os.getenv('TURSO_AUTH_TOKEN')
 
-        print(self.__url__)
-
         self.type = None
         self.table_name = None
         self.select_params = []
@@ -99,8 +97,6 @@ class DB:
         
         query = self.__construct_query__().replace("None", "null")
 
-        print(query)
-
         if not query:
             raise ValueError('Invalid query')
         
@@ -135,8 +131,6 @@ class DB:
         formatted_data: list[dict[str, Any]] = []
 
         for row_elements_index in range(len(data)):
-            print(row_elements_index)
-            
             for element_index in range(len(data[row_elements_index])):
 
                 name_param = schema[element_index]['name']
