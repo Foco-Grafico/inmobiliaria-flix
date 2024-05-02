@@ -1,7 +1,11 @@
 
 import Image from 'next/image'
 
-export const LoginForm = () => {
+interface Props {
+  error?: string
+}
+
+export const LoginForm = ({ error }: Props) => {
   return (
 
     <div className='grid grid-cols-2 h-screen w-full'>
@@ -42,7 +46,7 @@ export const LoginForm = () => {
               </a>
             </p>
           </div>
-          <form action='/api/auth/login?redirect=/' className='space-y-4'>
+          <form action='/api/auth/login?redirect=/&current_path=/login' method='POST' className='space-y-4'>
             <div>
               <label
                 className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 sr-only'
@@ -141,7 +145,7 @@ export const LoginForm = () => {
               >
                 Sign in
               </button>
-              {/* {err != null && <p id='paragraph-error' className='text-red-500'>{err}</p>} */}
+              {error != null && <p id='paragraph-error' className='text-red-500'>{error}</p>}
             </div>
           </form>
           <div className='mt-6 text-center text-sm'>
