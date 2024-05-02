@@ -134,7 +134,9 @@ class DB:
 
         formatted_data: list[dict[str, Any]] = []
 
-        # start from 0
+        if len(data) == 0:
+            raise ValueError('No data found')
+
         for row_elements_index in range(len(data)):
             print(row_elements_index)
             
