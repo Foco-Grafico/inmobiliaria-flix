@@ -27,7 +27,7 @@ export default function FormRegister() {
             
     return (
         <form onSubmit={handleSubmit}>
-            <input type="text" name="first_name" placeholder="Juan"></input>
+            <input type="text" name="first_name" placeholder="Juan" className="text-white"></input>
             <input type="text" name="last_name" placeholder="Hernandez"></input>
             <input type="email" name="email" placeholder="example@gmail,com" ></input>
             <input type="password" name="passeword" placeholder="*******"></input>
