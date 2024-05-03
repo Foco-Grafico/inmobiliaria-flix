@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     token_expiration_time TIMESTAMP NOT NULL,
+    location VARCHAR(255) NOT NULL,
     UNIQUE (email),
     UNIQUE (token)
 );

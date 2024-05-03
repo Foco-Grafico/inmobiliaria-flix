@@ -13,6 +13,7 @@ class RegisterUserRequest(BaseModel):
     first_name: str
     last_name: str
     phone_number: str
+    location: str
 
     @classmethod
     def as_form(
@@ -21,14 +22,16 @@ class RegisterUserRequest(BaseModel):
         password: Annotated[str, Form()],
         first_name: Annotated[str, Form()],
         last_name: Annotated[str, Form()],
-        phone_number: Annotated[str, Form()]
+        phone_number: Annotated[str, Form()],
+        location: Annotated[str, Form()]
     ):
         return cls(
             email=email,
             password=password,
             first_name=first_name,
             last_name=last_name,
-            phone_number=phone_number
+            phone_number=phone_number,
+            location=location
     )
 
 def timeplusdays(extra_days: int):
@@ -49,7 +52,8 @@ async def register_user(request_user: RegisterUserRequest = Depends(RegisterUser
             'email': request_user.email, 
             'phone_number': request_user.phone_number,
             'token': token,
-            'token_expiration_time': timeplusdays(EXPIRATION_TIME_TOKEN_DAYS)
+            'token_expiration_time': timeplusdays(EXPIRATION_TIME_TOKEN_DAYS),
+            'location': request_user.location
         }).from_table('users').execute()
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
